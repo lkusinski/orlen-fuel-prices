@@ -1,0 +1,54 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Ceny Paliw Orlen",
+        "description": "Wybierz produkty paliwowe i opcje cenowe. Konto nie jest wymagane — dane pochodzą z publicznego cennika hurtowego ORLEN.",
+        "data": {
+          "products": "Produkty paliwowe",
+          "vat_mode": "Tryb VAT",
+          "vat_rate": "Stała stawka VAT (%)",
+          "margin": "Marża (%)",
+          "show_netto": "Twórz sensory netto",
+          "lpg_regions": "Regiony LPG",
+          "scan_interval": "Interwał odświeżania (s)"
+        },
+        "data_description": {
+          "vat_mode": "auto = tabela CPN 2026, fixed = zawsze wymuszona stawka",
+          "margin": "Domyślnie 0%. Sensor marży pokazuje brutto x (1 + marża/100).",
+          "show_netto": "Dodatkowo wystawiaj ceny netto (przydatne do faktur).",
+          "scan_interval": "Jak często odświeżać, od 3600 do 86400 sekund."
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Nieprawidłowa konfiguracja."
+    },
+    "abort": {
+      "already_configured": "Integracja Ceny Paliw Orlen jest już skonfigurowana."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Ceny Paliw Orlen — opcje",
+        "description": "Zmień produkty paliwowe i opcje cenowe.",
+        "data": {
+          "products": "Produkty paliwowe",
+          "vat_mode": "Tryb VAT",
+          "vat_rate": "Stała stawka VAT (%)",
+          "margin": "Marża (%)",
+          "show_netto": "Twórz sensory netto",
+          "lpg_regions": "Regiony LPG",
+          "scan_interval": "Interwał odświeżania (s)"
+        },
+        "data_description": {
+          "vat_mode": "auto = tabela CPN 2026, fixed = zawsze wymuszona stawka",
+          "margin": "Domyślnie 0%. Sensor marży pokazuje brutto x (1 + marża/100).",
+          "show_netto": "Dodatkowo wystawiaj ceny netto (przydatne do faktur).",
+          "scan_interval": "Jak często odświeżać, od 3600 do 86400 sekund."
+        }
+      }
+    }
+  }
+}

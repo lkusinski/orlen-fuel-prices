@@ -1,0 +1,9 @@
+[project]
+name = "orlen-fuel-prices"
+version = "0.1.0"
+description = "Ceny Paliw Orlen — Home Assistant integration for ORLEN wholesale fuel prices"
+requires-python = ">=3.12"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"

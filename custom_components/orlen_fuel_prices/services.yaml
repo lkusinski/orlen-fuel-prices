@@ -1,0 +1,14 @@
+get_prices:
+  name: Pobierz ceny paliw
+  description: >-
+    Zwraca bieżące hurtowe ceny paliw ORLEN (netto, brutto oraz brutto z marżą)
+    dla wybranej konfiguracji. Wywołaj z parametrem return_response.
+  fields:
+    entry_id:
+      name: Identyfikator wpisu
+      description: >-
+        Opcjonalny identyfikator wpisu konfiguracji. Gdy pominięty, użyty
+        zostanie pierwszy wpis integracji.
+      required: false
+      selector:
+        text:

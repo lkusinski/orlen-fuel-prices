@@ -1,0 +1,54 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Ceny Paliw Orlen",
+        "description": "Choose fuel products and pricing options. No account is required — prices come from the public ORLEN wholesale price list.",
+        "data": {
+          "products": "Fuel products",
+          "vat_mode": "VAT mode",
+          "vat_rate": "Fixed VAT rate (%)",
+          "margin": "Margin (%)",
+          "show_netto": "Create netto sensors",
+          "lpg_regions": "LPG regions",
+          "scan_interval": "Refresh interval (s)"
+        },
+        "data_description": {
+          "vat_mode": "auto = CPN 2026 table, fixed = always use the fixed rate",
+          "margin": "0% by default. The margin sensor shows brutto x (1 + margin/100).",
+          "show_netto": "Also expose netto prices (useful for invoices).",
+          "scan_interval": "How often to refresh, 3600–86400 seconds."
+        }
+      }
+    },
+    "error": {
+      "invalid_config": "Invalid configuration."
+    },
+    "abort": {
+      "already_configured": "Ceny Paliw Orlen is already configured."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Ceny Paliw Orlen — options",
+        "description": "Adjust fuel products and pricing options.",
+        "data": {
+          "products": "Fuel products",
+          "vat_mode": "VAT mode",
+          "vat_rate": "Fixed VAT rate (%)",
+          "margin": "Margin (%)",
+          "show_netto": "Create netto sensors",
+          "lpg_regions": "LPG regions",
+          "scan_interval": "Refresh interval (s)"
+        },
+        "data_description": {
+          "vat_mode": "auto = CPN 2026 table, fixed = always use the fixed rate",
+          "margin": "0% by default. The margin sensor shows brutto x (1 + margin/100).",
+          "show_netto": "Also expose netto prices (useful for invoices).",
+          "scan_interval": "How often to refresh, 3600–86400 seconds."
+        }
+      }
+    }
+  }
+}

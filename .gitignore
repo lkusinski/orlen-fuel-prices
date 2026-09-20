@@ -1,0 +1,36 @@
+# IDE
+*.iml
+.idea
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.venv*
+*.egg-info
+
+# Testy / lint
+.coverage
+.pytest_cache/
+.ruff_cache/
+
+# Sekrety i pliki lokalne (NIGDY nie commituj)
+CREDENTIALS.md
+.lab_credentials
+mcp_key*
+*.labtok*
+tools/
+temp_*.py
+diag_*.py
+check_*.py
+fix_*.py
+reload_*.py
+restart_*.py
+
+# Artefakty
+reports/
+*.tar.gz
+*.vma.zst
+logs_*.txt
