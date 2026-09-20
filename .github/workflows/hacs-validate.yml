@@ -13,6 +13,11 @@ jobs:
     steps:
       - uses: "actions/checkout@v4"
       - name: HACS validation
+        # The public HACS action cannot read the files of a private repository
+        # (raw file lookups are unauthenticated), so manifest/hacs.json checks
+        # are expected to fail here. HACS itself still supports private repos
+        # via a configured GitHub token. Keep this non-blocking.
+        continue-on-error: true
         uses: "hacs/action@main"
         with:
           category: "integration"
