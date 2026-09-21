@@ -13,10 +13,10 @@
   <img src="https://img.shields.io/github/license/lkusinski/orlen-fuel-prices" alt="License"/>
 </p>
 
-**Najnowsze wydanie: [v0.1.0-beta.3](https://github.com/lkusinski/orlen-fuel-prices/releases)** (pre-release).
+**Najnowsze wydanie: [v1.0.0](https://github.com/lkusinski/orlen-fuel-prices/releases)** (stabilne).
 
 > [!NOTE]
-> Repozytorium niestandardowe HACS (**prywatne**). Instalacja przez
+> Repozytorium niestandardowe HACS. Instalacja przez
 > **HACS → Integracje → Repozytoria niestandardowe** (kategoria: Integracja) albo ręcznie.
 > Integracja korzysta z **publicznego, nieoficjalnego** API hurtowych cen paliw ORLEN
 > i **nie jest** powiązana z ORLEN S.A.
@@ -61,9 +61,6 @@
 3. URL: `https://github.com/lkusinski/orlen-fuel-prices` → kategoria **Integracja**.
 4. Dodaj, znajdź **Ceny Paliw Orlen**, wybierz **Pobierz**.
 5. Zrestartuj Home Assistant.
-
-> Dla repozytorium **prywatnego** HACS wymaga skonfigurowanego tokenu GitHub
-> z dostępem do tego repozytorium.
 
 ### Metoda 2: ręcznie
 
@@ -159,8 +156,8 @@ z zaznaczoną opcją zwrotu odpowiedzi).
   może odrzucać połączenia. Zmniejsz częstotliwość (interwał ≥ 1 h).
 - **`stale: true` (atrybut):** brak świeżych danych (sieć/WAF) — encje pokazują
   ostatnią znaną wartość.
-- Po aktualizacji z `beta.2` na `beta.3` encje utworzą się na nowo (zmiana
-  `unique_id`); w razie potrzeby usuń osierocone wpisy w rejestrze encji.
+- **Aktualizacja z wersji beta:** w `beta.3` zmieniono `unique_id`, więc encje
+  utworzą się na nowo; w razie potrzeby usuń osierocone wpisy w rejestrze encji.
 - Zgłoś problem przez [Issues](https://github.com/lkusinski/orlen-fuel-prices/issues)
   z wersją HA i integracji oraz logami.
 

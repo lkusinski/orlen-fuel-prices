@@ -5,9 +5,10 @@
   "codeowners": ["@lkusinski"],
   "config_flow": true,
   "documentation": "https://github.com/lkusinski/orlen-fuel-prices",
+  "homeassistant": "2024.6.0",
   "integration_type": "hub",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/lkusinski/orlen-fuel-prices/issues",
   "requirements": [],
-  "version": "0.1.0-beta.3"
+  "version": "1.0.0"
 }

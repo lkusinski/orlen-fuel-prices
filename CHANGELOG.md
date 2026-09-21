@@ -4,6 +4,20 @@
 > Sekcje z emoji: 🚀 nowości, 🐛 poprawki, 🛠️ zmiany techniczne, ✅ testy/weryfikacja,
 > ⚠️ breaking, 🔒 bezpieczeństwo/PII.
 
+## v1.0.0 (2026-09-21) — pierwsze stabilne wydanie
+
+Wydanie **stabilne** po serii `v0.1.0-beta.1 … beta.3`. Zawiera pełną
+funkcjonalność: hurtowe ceny paliw ORLEN (netto/brutto), poprawny VAT CPN 2026,
+marżę sterowaną z UI, datę ceny i opcjonalne LPG.
+
+Promocja do stabilnej po testach (`64 passed`, `ruff` czysto), zielonym CI
+(Tests, hassfest, HACS) oraz weryfikacji na labie `warzywna` (VM125, HA 2026.9.1).
+
+- 🚀 Wszystkie funkcje z `v0.1.0-beta.3`.
+- 🛠️ `manifest.json`: dodano `homeassistant: 2024.6.0` (minimalna wersja HA).
+- 🛠️ Repozytorium **publiczne** — HACS instaluje bez tokenu GitHub.
+- ✅ Testy: `64 passed`; `ruff` czysty.
+
 ## v0.1.0-beta.3 (2026-09-21) — marża w UI, czytelne nazwy i ikony encji
 
 Wydanie **pre-release**. Sterowanie marżą przeniesione do UI oraz przebudowa
@@ -61,7 +75,3 @@ do czasu przejścia protokołu akceptacyjnego (laby + produkcja).
   workflow release jako pre-release dla tagów `-beta`.
 - 🔒 Brak sekretów — API nie wymaga logowania; brak PII w diagnostyce/logach.
 - ✅ Testy: `61 passed`; `ruff` czysty.
-
-## v0.1.0 (planowane) — pierwsze stabilne wydanie
-
-Wydanie **stabilne** po akceptacji pre-release na labach i produkcji.
