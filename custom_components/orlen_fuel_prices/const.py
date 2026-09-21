@@ -50,6 +50,17 @@ PRODUCT_LABELS: dict[str, str] = {
     "BIO100": "BIO 100",
 }
 PRODUCTS: tuple[str, ...] = tuple(PRODUCT_LABELS)
+
+# Friendly short names for entity names (nicer than raw API symbols).
+PRODUCT_SHORT: dict[str, str] = {
+    "Pb95": "Pb95",
+    "Pb98": "Pb98",
+    "ONEkodiesel": "ON Ekodiesel",
+    "ONArctic2": "ON Arktyczny 2",
+    "ONSuper": "ON Super",
+    "OnEkoterm": "ON Ekoterm",
+    "BIO100": "BIO 100",
+}
 DEFAULT_PRODUCTS: tuple[str, ...] = (
     "Pb95",
     "Pb98",

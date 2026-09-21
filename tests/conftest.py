@@ -66,6 +66,7 @@ _HA_MODULES = [
     "homeassistant.helpers.update_coordinator",
     "homeassistant.components",
     "homeassistant.components.sensor",
+    "homeassistant.components.number",
     "homeassistant.const",
     "homeassistant.util",
 ]
@@ -110,6 +111,7 @@ _const.PERCENTAGE = "%"
 
 class _Platform:
     SENSOR = "sensor"
+    NUMBER = "number"
 
 
 class _EntityCategory:
@@ -255,6 +257,30 @@ _sensor.SensorDeviceClass = _SensorDeviceClass
 _sensor.SensorStateClass = _SensorStateClass
 _sensor.SensorEntity = _SensorEntity
 
+# components.number
+_number = sys.modules["homeassistant.components.number"]
+
+
+class _NumberMode:
+    AUTO = "auto"
+    BOX = "box"
+    SLIDER = "slider"
+
+
+class _NumberEntity:
+    @property
+    def unique_id(self):
+        return getattr(self, "_attr_unique_id", None)
+
+    @property
+    def name(self):
+        return getattr(self, "_attr_name", None)
+
+
+_number.NumberEntity = _NumberEntity
+_number.NumberMode = _NumberMode
+_number.NumberDeviceClass = MagicMock()
+
 # helpers.device_registry.DeviceInfo
 _gd = sys.modules["homeassistant.helpers.device_registry"]
 _gd.DeviceInfo = lambda **kwargs: dict(kwargs)
@@ -316,6 +342,7 @@ _helpers.entity = sys.modules["homeassistant.helpers.entity"]
 
 _components = sys.modules["homeassistant.components"]
 _components.sensor = _sensor
+_components.number = _number
 
 _util = sys.modules["homeassistant.util"]
 _util.dt = _dt_mod

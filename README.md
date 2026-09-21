@@ -7,7 +7,7 @@
 ![GitHub Release](https://img.shields.io/github/v/release/lkusinski/orlen-fuel-prices)
 [![HACS](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
 ![API](https://img.shields.io/badge/data_source-REST_API-blue)
-![Tests](https://img.shields.io/badge/tests-61_passed-lightgrey)
+![Tests](https://img.shields.io/badge/tests-64_passed-lightgrey)
 
 **Najnowsze wydanie: [v0.1.0-beta.1](https://github.com/lkusinski/orlen-fuel-prices/releases)** (pre-release).
 
@@ -76,33 +76,45 @@ Skopiuj `custom_components/orlen_fuel_prices/` do
 
 ## 🧩 Encje
 
-Dla każdego wybranego produktu (`<sym>` = np. `pb95`):
+Dla każdego wybranego produktu (np. `Pb95` → `<slug>` = `pb95`,
+`ONEkodiesel` → `on_ekodiesel`):
 
-| Encja | Typ | Opis |
+| Encja | Nazwa | Opis |
 |---|---|---|
-| `sensor.orlen_<sym>_netto` | sensor | Cena hurtowa netto, zł/l. |
-| `sensor.orlen_<sym>_brutto` | sensor | Cena brutto (netto × (1 + VAT)). |
-| `sensor.orlen_<sym>_brutto_z_marza` | sensor | Brutto z marżą (domyślnie 0% = brutto). |
-| `sensor.orlen_<sym>_data_obowiazywania` | sensor | Timestamp `effectiveDate`. |
+| `sensor.orlen_<slug>_cena_netto` | *Pb95 – cena netto* | Cena hurtowa netto, zł/l. |
+| `sensor.orlen_<slug>_cena_brutto` | *Pb95 – cena brutto* | Cena brutto (netto × (1 + VAT)). |
+| `sensor.orlen_<slug>_cena_brutto_z_marza` | *Pb95 – cena z marżą* | Brutto z marżą (domyślnie 0% = brutto). |
+| `sensor.orlen_<slug>_data_ceny` | *Pb95 – data ceny* | Timestamp `effectiveDate`. |
 
 Globalne:
 
-| Encja | Opis |
-|---|---|
-| `sensor.orlen_aktualna_stawka_vat` | Aktualnie stosowana stawka VAT (%). |
-| `sensor.orlen_marza` | Skonfigurowana marża (%). |
-| `sensor.orlen_ostatnia_aktualizacja` | Czas ostatniego udanego pobrania. |
+| Encja | Nazwa | Opis |
+|---|---|---|
+| `number.orlen_marza` | **Marża** | **Ustawialna z UI** marża (%) — domyślnie `0`. |
+| `sensor.orlen_aktualna_stawka_vat` | Aktualna stawka VAT | Aktualnie stosowana stawka VAT (%). |
+| `sensor.orlen_ostatnia_aktualizacja` | Ostatnia aktualizacja | Czas ostatniego udanego pobrania. |
 
-LPG (gdy wybrano regiony): `sensor.orlen_lpg_<woj>_netto`,
-`sensor.orlen_lpg_<woj>_brutto`, `sensor.orlen_lpg_<woj>_brutto_z_marza`.
+LPG (gdy wybrano regiony): `sensor.orlen_lpg_<woj>_cena_netto`,
+`..._cena_brutto`, `..._cena_brutto_z_marza`.
+
+Ikony: netto `mdi:cash-minus`, brutto `mdi:cash`, z marżą `mdi:cash-plus`,
+data `mdi:calendar-clock`, LPG `mdi:gas-cylinder`, VAT `mdi:percent`.
 
 Atrybuty każdego sensora ceny: `product_symbol`, `effective_date`, `vat_rate`,
 `margin`, `stale`, `source`.
 
-> **Marża:** domyślnie `0%`, więc `brutto_z_marza == brutto`. To celowe —
-> Orlen publikuje cenę **hurtową netto**, a marża detaliczna jest pojęciem
-> odrębnym i jej nie zgadujemy. Encja istnieje dla użytkowników, którzy chcą
-> doliczyć własną marżę.
+### ➕ Jak ustawić marżę?
+
+1. **Najprościej — encja `number.orlen_marza`:** Ustawienia → Urządzenia i usługi
+   → **Ceny Paliw Orlen** → urządzenie **ORLEN** → sekcja *Konfiguracja* →
+   **Marża** (pole liczbowe 0–1000%). Zmiana od razu przelicza ceny
+   (`brutto × (1 + marża/100)`) i zapisuje się w konfiguracji.
+2. **Alternatywnie — opcje integracji:** *Konfiguruj* → pole **Marża (%)**.
+3. W automatyzacjach/UI możesz też użyć usługi `number.set_value`.
+
+> **Marża:** domyślnie `0%`, więc `cena z marżą == cena brutto`. To celowe —
+> Orlen publikuje cenę **hurtową netto**, a marży detalicznej nie zgadujemy;
+> encja służy tym, którzy chcą doliczyć własną narzutę.
 
 ## 🔧 Usługi
 

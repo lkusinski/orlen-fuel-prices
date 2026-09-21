@@ -4,6 +4,26 @@
 > Sekcje z emoji: 🚀 nowości, 🐛 poprawki, 🛠️ zmiany techniczne, ✅ testy/weryfikacja,
 > ⚠️ breaking, 🔒 bezpieczeństwo/PII.
 
+## v0.1.0-beta.3 (2026-09-21) — marża w UI, czytelne nazwy i ikony encji
+
+Wydanie **pre-release**. Sterowanie marżą przeniesione do UI oraz przebudowa
+nazewnictwa/ikon encji. **NIE promowano do stabilnej.**
+
+- 🚀 **`number.orlen_marza`** — marża ustawialna bezpośrednio z UI (0–1000%,
+  krok 0,1%): zapis do opcji wpisu i automatyczne przeliczenie cen na encjach.
+  Domyślnie **0%**.
+- 🚀 Czytelne nazwy encji: „**Pb95 – cena netto/brutto/z marżą**”,
+  „**ON Ekodiesel – …**”, „**… – data ceny**”, „**LPG mazowieckie – …**”.
+- 🚀 Ikony: netto `mdi:cash-minus`, brutto `mdi:cash`, z marżą `mdi:cash-plus`,
+  data `mdi:calendar-clock`, LPG `mdi:gas-cylinder`, VAT `mdi:percent`,
+  marża `mdi:percent-box`.
+- 🛠️ Spójne `unique_id`/`entity_id`: `sensor.orlen_<slug>_cena_<netto|brutto|brutto_z_marza>`,
+  `sensor.orlen_<slug>_data_ceny`, `sensor.orlen_lpg_<woj>_cena_*`,
+  `number.orlen_marza`.
+- ⚠️ Zmiana `unique_id` względem `beta.2` — po aktualizacji encje utworzą się na
+  nowo; w rejestrze encji mogą zostać osierocone wpisy do usunięcia.
+- ✅ Testy: `64 passed`; `ruff` czysty.
+
 ## v0.1.0-beta.2 (2026-09-21) — poprawka encji marży (wykryta na labie)
 
 Wydanie **pre-release**. Weryfikacja na labie **warzywna** (VM125, HA 2026.9.1)

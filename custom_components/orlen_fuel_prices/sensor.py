@@ -30,16 +30,25 @@ from .const import (
     DEFAULT_SHOW_NETTO,
     DOMAIN,
     PAGE_URL,
+    PRODUCT_SHORT,
     SOURCE_URL,
     as_bool,
 )
 
 PRICE_UNIT = "zł/l"
+
+# Display titles and icons per price kind.
 PRICE_TITLES = {
-    "netto": "netto",
-    "brutto": "brutto",
-    "brutto_z_marza": "brutto z marżą",
+    "netto": "cena netto",
+    "brutto": "cena brutto",
+    "brutto_z_marza": "cena z marżą",
 }
+PRICE_ICONS = {
+    "netto": "mdi:cash-minus",
+    "brutto": "mdi:cash",
+    "brutto_z_marza": "mdi:cash-plus",
+}
+LPG_ICON = "mdi:gas-cylinder"
 
 
 def _parse_dt(value: object) -> datetime | None:
@@ -98,8 +107,10 @@ class OrlenMotorPriceSensor(OrlenBaseSensor):
         super().__init__(coordinator, entry_id)
         self._product = product
         self._price_key = price_key
-        self._attr_name = f"{product} {PRICE_TITLES[price_key]}"
-        self._attr_unique_id = f"{DOMAIN}_{product}_{price_key}"
+        short = PRODUCT_SHORT.get(product, product)
+        self._attr_name = f"{short} – {PRICE_TITLES[price_key]}"
+        self._attr_unique_id = f"{DOMAIN}_{product}_cena_{price_key}"
+        self._attr_icon = PRICE_ICONS[price_key]
         self._attr_native_unit_of_measurement = PRICE_UNIT
         # No device_class MONETARY: with a measurement state_class HA warns about
         # the combination (see old package). A price in zł/l is a measurement.
@@ -136,12 +147,14 @@ class OrlenMotorDateSensor(OrlenBaseSensor):
 
     _attr_device_class = SensorDeviceClass.TIMESTAMP
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_icon = "mdi:calendar-clock"
 
     def __init__(self, coordinator, entry_id: str, product: str) -> None:
         super().__init__(coordinator, entry_id)
         self._product = product
-        self._attr_name = f"{product} data obowiązywania"
-        self._attr_unique_id = f"{DOMAIN}_{product}_effective_date"
+        short = PRODUCT_SHORT.get(product, product)
+        self._attr_name = f"{short} – data ceny"
+        self._attr_unique_id = f"{DOMAIN}_{product}_data_ceny"
 
     @property
     def _record(self) -> dict | None:
@@ -166,12 +179,14 @@ class OrlenMotorDateSensor(OrlenBaseSensor):
 class OrlenLpgPriceSensor(OrlenBaseSensor):
     """Netto / brutto / brutto z marżą for autogas in one voivodeship."""
 
+    _attr_icon = LPG_ICON
+
     def __init__(self, coordinator, entry_id: str, region: str, price_key: str) -> None:
         super().__init__(coordinator, entry_id)
         self._region = region
         self._price_key = price_key
-        self._attr_name = f"LPG {region} {PRICE_TITLES[price_key]}"
-        self._attr_unique_id = f"{DOMAIN}_lpg_{region}_{price_key}"
+        self._attr_name = f"LPG {region} – {PRICE_TITLES[price_key]}"
+        self._attr_unique_id = f"{DOMAIN}_lpg_{region}_cena_{price_key}"
         self._attr_native_unit_of_measurement = PRICE_UNIT
         self._attr_state_class = SensorStateClass.MEASUREMENT
         self._attr_suggested_display_precision = 3
@@ -207,6 +222,7 @@ class OrlenVatRateSensor(OrlenBaseSensor):
     _attr_native_unit_of_measurement = PERCENTAGE
     _attr_state_class = SensorStateClass.MEASUREMENT
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_icon = "mdi:percent"
 
     def __init__(self, coordinator, entry_id: str) -> None:
         super().__init__(coordinator, entry_id)
@@ -218,31 +234,12 @@ class OrlenVatRateSensor(OrlenBaseSensor):
         return (self.coordinator.data or {}).get("vat_rate")
 
 
-class OrlenMarginSensor(OrlenBaseSensor):
-    """Configured margin (%). Zero by default, so it never changes prices.
-
-    Kept as a normal sensor: HA refuses sensors with the ``config`` entity
-    category ("cannot be added as the entity category is set to config").
-    """
-
-    _attr_native_unit_of_measurement = PERCENTAGE
-    _attr_state_class = SensorStateClass.MEASUREMENT
-
-    def __init__(self, coordinator, entry_id: str) -> None:
-        super().__init__(coordinator, entry_id)
-        self._attr_name = "Marża"
-        self._attr_unique_id = f"{DOMAIN}_margin"
-
-    @property
-    def native_value(self) -> float | None:
-        return (self.coordinator.data or {}).get("margin")
-
-
 class OrlenLastUpdateSensor(OrlenBaseSensor):
     """Timestamp of the last successful data fetch."""
 
     _attr_device_class = SensorDeviceClass.TIMESTAMP
     _attr_entity_category = EntityCategory.DIAGNOSTIC
+    _attr_icon = "mdi:clock-check-outline"
 
     def __init__(self, coordinator, entry_id: str) -> None:
         super().__init__(coordinator, entry_id)
@@ -292,7 +289,6 @@ async def async_setup_entry(
     entities.extend(
         [
             OrlenVatRateSensor(coordinator, entry.entry_id),
-            OrlenMarginSensor(coordinator, entry.entry_id),
             OrlenLastUpdateSensor(coordinator, entry.entry_id),
         ]
     )
