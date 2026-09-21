@@ -18,17 +18,18 @@ from custom_components.orlen_fuel_prices.const import (
     CONF_VAT_MODE,
     CONF_VAT_RATE,
     DEFAULT_VAT,
+    PRODUCT_LABELS,
     VAT_MODE_AUTO,
     VAT_MODE_FIXED,
 )
 
 VALID_INPUT = {
-    CONF_PRODUCTS: {"Pb95": "Pb95", "ONEkodiesel": "ONEkodiesel"},
+    CONF_PRODUCTS: ["Pb95", "ONEkodiesel"],
     CONF_VAT_MODE: VAT_MODE_AUTO,
     CONF_VAT_RATE: DEFAULT_VAT,
     CONF_MARGIN: 0,
     CONF_SHOW_NETTO: True,
-    CONF_LPG_REGIONS: {},
+    CONF_LPG_REGIONS: [],
     CONF_SCAN_INTERVAL: 3600,
 }
 
@@ -65,10 +66,8 @@ async def test_step_user_creates_entry():
 
 async def test_step_user_preserves_product_selection():
     flow = OrlenFuelPricesConfigFlow()
-    result = await flow.async_step_user(
-        {**VALID_INPUT, CONF_PRODUCTS: {"Pb98": "Pb98"}}
-    )
-    assert result["data"][CONF_PRODUCTS] == {"Pb98": "Pb98"}
+    result = await flow.async_step_user({**VALID_INPUT, CONF_PRODUCTS: ["Pb98"]})
+    assert result["data"][CONF_PRODUCTS] == {"Pb98": PRODUCT_LABELS["Pb98"]}
 
 
 async def test_step_user_invalid_config_shows_error():

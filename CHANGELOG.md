@@ -4,6 +4,21 @@
 > Sekcje z emoji: 🚀 nowości, 🐛 poprawki, 🛠️ zmiany techniczne, ✅ testy/weryfikacja,
 > ⚠️ breaking, 🔒 bezpieczeństwo/PII.
 
+## v0.1.0-beta.2 (2026-09-21) — poprawka encji marży (wykryta na labie)
+
+Wydanie **pre-release**. Weryfikacja na labie **warzywna** (VM125, HA 2026.9.1)
+wykryła błąd: sensor marży miał `EntityCategory.CONFIG`, czego Home Assistant nie
+pozwala dla encji typu sensor („Entity sensor.orlen_marza cannot be added as the
+entity category is set to config”). Naprawione + test regresyjny.
+**NIE promowano do stabilnej.**
+
+- 🐛 `sensor.orlen_marza` był niedostępny — usunięto kategorię `config`.
+- 🛠️ Mocki testowe `multi_select` zgodne z HA (wymaga **listy**, nie dict) —
+  wykryte przez onboarding na labie przez REST.
+- ✅ Testy: `62 passed`; `ruff` czysty.
+- ✅ Lab warzywna (VM125): wpis `loaded`, 18/18 encji dostępnych; marża 5% →
+  Pb95 `8.193 zł/l`, powrót 0% → `7.803 zł/l`; usługa `get_prices` → 200.
+
 ## v0.1.0-beta.1 (2026-09-20) — pierwsze wydanie testowe
 
 Wydanie **pre-release** (nie stabilne). Pierwsza wersja integracji

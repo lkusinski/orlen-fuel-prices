@@ -219,11 +219,14 @@ class OrlenVatRateSensor(OrlenBaseSensor):
 
 
 class OrlenMarginSensor(OrlenBaseSensor):
-    """Configured margin (%). Zero by default, so it never changes prices."""
+    """Configured margin (%). Zero by default, so it never changes prices.
+
+    Kept as a normal sensor: HA refuses sensors with the ``config`` entity
+    category ("cannot be added as the entity category is set to config").
+    """
 
     _attr_native_unit_of_measurement = PERCENTAGE
     _attr_state_class = SensorStateClass.MEASUREMENT
-    _attr_entity_category = EntityCategory.CONFIG
 
     def __init__(self, coordinator, entry_id: str) -> None:
         super().__init__(coordinator, entry_id)

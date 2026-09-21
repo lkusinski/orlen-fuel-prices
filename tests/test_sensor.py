@@ -88,6 +88,12 @@ def test_margin_sensor_value(fake_coordinator):
     assert sensor.native_value == 0.0
 
 
+def test_margin_sensor_is_not_config_category(fake_coordinator):
+    # Regression: HA refuses to add sensors with EntityCategory.CONFIG.
+    sensor = OrlenMarginSensor(fake_coordinator, "e1")
+    assert getattr(sensor, "_attr_entity_category", None) is None
+
+
 def test_vat_rate_sensor_value(fake_coordinator):
     sensor = OrlenVatRateSensor(fake_coordinator, "e1")
     assert sensor.native_value == 23.0

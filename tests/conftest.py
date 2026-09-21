@@ -15,16 +15,16 @@ import voluptuous as vol
 
 # --- minimal real cv helpers (mirrors the subset we use) -------------------
 def _multi_select(options):
-    keys = list(options)
+    # Mirrors homeassistant.helpers.config_validation.multi_select: it accepts
+    # only a list of selected keys and returns a mapping key -> option label.
+    options = options if isinstance(options, dict) else {o: o for o in options}
 
     def validator(value):
-        if value in (None, ""):
+        if value is None:
             return {}
-        if isinstance(value, list):
-            value = {item: True for item in value}
-        elif not isinstance(value, dict):
-            raise vol.Invalid("expected a list or a mapping of selected options")
-        return {k: v for k, v in value.items() if k in keys}
+        if not isinstance(value, list):
+            raise vol.Invalid("Not a list")
+        return {key: options[key] for key in value if key in options}
 
     return validator
 
