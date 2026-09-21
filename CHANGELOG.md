@@ -14,7 +14,8 @@ Promocja do stabilnej po testach (`64 passed`, `ruff` czysto), zielonym CI
 (Tests, hassfest, HACS) oraz weryfikacji na labie `warzywna` (VM125, HA 2026.9.1).
 
 - 🚀 Wszystkie funkcje z `v0.1.0-beta.3`.
-- 🛠️ `manifest.json`: dodano `homeassistant: 2024.6.0` (minimalna wersja HA).
+- 🛠️ Minimalna wersja HA (`2024.6.0`) zadeklarowana w `hacs.json`; dodano
+  `CONFIG_SCHEMA` (`config_entry_only_config_schema`).
 - 🛠️ Repozytorium **publiczne** — HACS instaluje bez tokenu GitHub.
 - ✅ Testy: `64 passed`; `ruff` czysty.
 
