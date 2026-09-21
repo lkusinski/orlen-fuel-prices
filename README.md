@@ -2,20 +2,24 @@
   <img src="logo.png" alt="Ceny Paliw Orlen" width="320"/>
 </div>
 
-<h1 align="center">Ceny Paliw Orlen for Home Assistant</h1>
+<h1 align="center">Ceny Paliw Orlen</h1>
+<p align="center"><em>Integracja Home Assistant z publicznym, nieoficjalnym API hurtowych cen paliw ORLEN.</em></p>
 
-![GitHub Release](https://img.shields.io/github/v/release/lkusinski/orlen-fuel-prices)
-[![HACS](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-![API](https://img.shields.io/badge/data_source-REST_API-blue)
-![Tests](https://img.shields.io/badge/tests-64_passed-lightgrey)
+<p align="center">
+  <img src="https://img.shields.io/badge/Home%20Assistant-2024.6%2B-41BDF5" alt="Home Assistant 2024.6+"/>
+  <a href="https://github.com/lkusinski/orlen-fuel-prices/releases"><img src="https://img.shields.io/github/v/release/lkusinski/orlen-fuel-prices?include_prereleases" alt="Release"/></a>
+  <img src="https://img.shields.io/badge/HACS-Custom-41BDF5.svg" alt="HACS Custom"/>
+  <img src="https://img.shields.io/badge/tests-64_passed-brightgreen" alt="Tests"/>
+  <img src="https://img.shields.io/github/license/lkusinski/orlen-fuel-prices" alt="License"/>
+</p>
 
-**Najnowsze wydanie: [v0.1.0-beta.1](https://github.com/lkusinski/orlen-fuel-prices/releases)** (pre-release).
+**Najnowsze wydanie: [v0.1.0-beta.3](https://github.com/lkusinski/orlen-fuel-prices/releases)** (pre-release).
 
 > [!NOTE]
-> Repozytorium niestandardowe HACS (prywatne). Instalacja przez
-> **HACS → Integracje → Repozytoria niestandardowe** (kategoria: Integracja)
-> albo ręcznie. Integracja korzysta z **publicznego, nieoficjalnego** API
-> hurtowych cen paliw ORLEN i nie jest w żaden sposób powiązana z ORLEN S.A.
+> Repozytorium niestandardowe HACS (**prywatne**). Instalacja przez
+> **HACS → Integracje → Repozytoria niestandardowe** (kategoria: Integracja) albo ręcznie.
+> Integracja korzysta z **publicznego, nieoficjalnego** API hurtowych cen paliw ORLEN
+> i **nie jest** powiązana z ORLEN S.A.
 
 ---
 
@@ -23,16 +27,28 @@
 
 * ⛽ **Hurtowe ceny paliw ORLEN** (netto, PLN/m³ → zł/l): Pb95, Pb98, ON Ekodiesel,
   ON Arktyczny 2, ON Miejski Super, ON grzewczy Ekoterm, BIO 100.
-* 🧮 **Poprawny VAT** — automatyczna tabela okresów **CPN 2026** (8% w oknach
-  obniżki dla paliw silnikowych) z zachowaniem 23% dla olejów opałowych,
-  albo **stała stawka** wymuszona przez użytkownika.
-* ➕ **Encja z marżą** — `..._brutto_z_marza`, domyślnie **0%** (równa cenie
-  brutto). Marża jest w pełni konfigurowalna i uwzględniana w obliczeniach.
-* 🗓️ **Data obowiązywania ceny** (`effectiveDate`) jako osobna encja — wiadomo,
-  kiedy cennik faktycznie się zmienił (weekendy bywają z piątku).
+* 🧮 **Poprawny VAT** — automatyczna tabela okresów **CPN 2026** (8% w oknach obniżki
+  dla paliw silnikowych) z zachowaniem 23% dla olejów opałowych, albo **stała stawka**
+  wymuszona przez użytkownika.
+* ➕ **Marża w UI** — encja `number.orlen_marza` (domyślnie **0%**) oraz sensory
+  „cena z marżą”, liczone jako `brutto × (1 + marża/100)`.
+* 🗓️ **Data obowiązywania ceny** (`effectiveDate`) jako osobna encja — wiadomo, kiedy
+  cennik faktycznie się zmienił (weekendy bywają z piątku).
 * 🛢️ **LPG** opcjonalnie, per województwo (`/api/autogasprices`).
 * 🧩 **Usługa `get_prices`** zwracająca pełny cennik przez `return_response`.
-* 🛡️ Odporne na WAF (HTML „Request Rejected” zamiast JSON), timeouty, 5xx.
+* 🎨 Czytelne nazwy i ikony encji, diagnostyka z maskowaniem danych.
+* 🛡️ Odporność na WAF (HTML „Request Rejected” zamiast JSON), timeouty i błędy 5xx.
+
+---
+
+## 🛠️ Wymagania
+
+| | |
+|---|---|
+| Home Assistant | **2024.6+** |
+| HACS | opcjonalnie (rekomendowane do instalacji/aktualizacji) |
+| Konto/klucz API | **nie jest wymagane** (API publiczne) |
+| Dostęp do sieci | `tool.orlen.pl` (HTTPS) |
 
 ---
 
@@ -47,19 +63,19 @@
 5. Zrestartuj Home Assistant.
 
 > Dla repozytorium **prywatnego** HACS wymaga skonfigurowanego tokenu GitHub
-> o dostępie do tego repo.
+> z dostępem do tego repozytorium.
 
 ### Metoda 2: ręcznie
 
-Skopiuj `custom_components/orlen_fuel_prices/` do
-`<config>/custom_components/orlen_fuel_prices/` i zrestartuj HA.
+Skopiuj katalog `custom_components/orlen_fuel_prices/` do
+`<config>/custom_components/orlen_fuel_prices/` i zrestartuj Home Assistant.
 
 ---
 
 ## ⚙️ Konfiguracja
 
 1. Ustawienia → Urządzenia i usługi → **Dodaj integrację** → **Ceny Paliw Orlen**.
-2. Wybierz **produkty paliwowe**, tryb VAT, marżę i interwał odświeżania.
+2. Wybierz produkty paliwowe, tryb VAT, marżę i interwał odświeżania.
 3. Gotowe — encje pojawią się na urządzeniu **ORLEN**.
 
 | Opcja | Domyślnie | Znaczenie |
@@ -68,7 +84,7 @@ Skopiuj `custom_components/orlen_fuel_prices/` do
 | `vat_mode` | `auto` | `auto` = tabela CPN 2026; `fixed` = zawsze stała stawka. |
 | `vat_rate` | `23` | Stawka używana w trybie `fixed`. |
 | `margin` | `0` | Marża (%) doliczana do brutto: `brutto × (1 + marża/100)`. |
-| `show_netto` | `true` | Dodatkowe sensory netto (do faktur). |
+| `show_netto` | `true` | Dodatkowe sensory netto (przydatne do faktur). |
 | `lpg_regions` | `[]` | Województwa LPG (brak = bez LPG). |
 | `scan_interval` | `3600` | Interwał odświeżania w sekundach (3600–86400). |
 
@@ -76,14 +92,13 @@ Skopiuj `custom_components/orlen_fuel_prices/` do
 
 ## 🧩 Encje
 
-Dla każdego wybranego produktu (np. `Pb95` → `<slug>` = `pb95`,
-`ONEkodiesel` → `on_ekodiesel`):
+Dla każdego wybranego produktu (`<slug>`: `Pb95` → `pb95`, `ONEkodiesel` → `on_ekodiesel`):
 
 | Encja | Nazwa | Opis |
 |---|---|---|
 | `sensor.orlen_<slug>_cena_netto` | *Pb95 – cena netto* | Cena hurtowa netto, zł/l. |
 | `sensor.orlen_<slug>_cena_brutto` | *Pb95 – cena brutto* | Cena brutto (netto × (1 + VAT)). |
-| `sensor.orlen_<slug>_cena_brutto_z_marza` | *Pb95 – cena z marżą* | Brutto z marżą (domyślnie 0% = brutto). |
+| `sensor.orlen_<slug>_cena_z_marza` | *Pb95 – cena z marżą* | Brutto z marżą (domyślnie 0% = brutto). |
 | `sensor.orlen_<slug>_data_ceny` | *Pb95 – data ceny* | Timestamp `effectiveDate`. |
 
 Globalne:
@@ -95,44 +110,71 @@ Globalne:
 | `sensor.orlen_ostatnia_aktualizacja` | Ostatnia aktualizacja | Czas ostatniego udanego pobrania. |
 
 LPG (gdy wybrano regiony): `sensor.orlen_lpg_<woj>_cena_netto`,
-`..._cena_brutto`, `..._cena_brutto_z_marza`.
+`sensor.orlen_lpg_<woj>_cena_brutto`, `sensor.orlen_lpg_<woj>_cena_z_marza`.
 
-Ikony: netto `mdi:cash-minus`, brutto `mdi:cash`, z marżą `mdi:cash-plus`,
-data `mdi:calendar-clock`, LPG `mdi:gas-cylinder`, VAT `mdi:percent`.
+**Ikony:** netto `mdi:cash-minus`, brutto `mdi:cash`, z marżą `mdi:cash-plus`,
+data `mdi:calendar-clock`, LPG `mdi:gas-cylinder`, VAT `mdi:percent`,
+marża `mdi:percent-box`.
 
-Atrybuty każdego sensora ceny: `product_symbol`, `effective_date`, `vat_rate`,
+**Atrybuty** każdego sensora ceny: `product_symbol`, `effective_date`, `vat_rate`,
 `margin`, `stale`, `source`.
 
 ### ➕ Jak ustawić marżę?
 
-1. **Najprościej — encja `number.orlen_marza`:** Ustawienia → Urządzenia i usługi
-   → **Ceny Paliw Orlen** → urządzenie **ORLEN** → sekcja *Konfiguracja* →
-   **Marża** (pole liczbowe 0–1000%). Zmiana od razu przelicza ceny
-   (`brutto × (1 + marża/100)`) i zapisuje się w konfiguracji.
+1. **Najprościej — encja `number.orlen_marza`:** Ustawienia → Urządzenia i usługi →
+   **Ceny Paliw Orlen** → urządzenie **ORLEN** → sekcja *Konfiguracja* → **Marża**
+   (pole liczbowe 0–1000%). Zmiana od razu przelicza ceny i zapisuje się w konfiguracji.
 2. **Alternatywnie — opcje integracji:** *Konfiguruj* → pole **Marża (%)**.
-3. W automatyzacjach/UI możesz też użyć usługi `number.set_value`.
+3. W automatyzacjach/UI można też użyć usługi `number.set_value`.
 
-> **Marża:** domyślnie `0%`, więc `cena z marżą == cena brutto`. To celowe —
-> Orlen publikuje cenę **hurtową netto**, a marży detalicznej nie zgadujemy;
-> encja służy tym, którzy chcą doliczyć własną narzutę.
+> **Marża:** domyślnie `0%`, więc *cena z marżą == cena brutto*. To celowe — ORLEN
+> publikuje cenę **hurtową netto**, a marży detalicznej nie zgadujemy; encja służy
+> tym, którzy chcą doliczyć własną narzutę.
+
+---
 
 ## 🔧 Usługi
 
-| Usługa | Pola | Opis |
+| Usługa | Pole | Opis |
 |---|---|---|
-| `orlen_fuel_prices.get_prices` | `entry_id` (opcjonalne) | Zwraca pełny cennik (`motor`, `lpg`, `vat_rate`, `margin`). Wywołaj z `return_response: true`. |
+| `orlen_fuel_prices.get_prices` | `entry_id` (opcjonalne) | Zwraca pełny cennik (`motor`, `lpg`, `vat_rate`, `margin`, `fetched_at`). Wywołaj z `return_response: true`. |
+
+Przykład (Narzędzia deweloperskie → Usługi → *Ceny Paliw Orlen: Pobierz ceny*,
+z zaznaczoną opcją zwrotu odpowiedzi).
+
+---
+
+## 📚 Dokumentacja
+
+* [`docs/DANE_I_VAT.md`](docs/DANE_I_VAT.md) — źródło danych, jednostki, tabela VAT i marża.
+* [`CHANGELOG.md`](CHANGELOG.md) — historia zmian (pre-release i stabilne).
+* [`AGENTS.md`](AGENTS.md) — zasady pracy nad projektem (dla agentów AI).
 
 ---
 
 ## 🐞 Rozwiązywanie problemów
 
 - Sprawdź Ustawienia → System → **Logi**, filtruj po `orlen_fuel_prices`.
-- **WAF / `Request Rejected`:** API ORLEN jest chronione; przy zbyt częstych
-  żądaniach może odrzucać połączenia. Zmniejsz częstotliwość (interwał ≥ 1 h).
-- **`stale: true`:** brak świeżych danych (sieć/WAF) — encje pokazują ostatnią
-  znaną wartość.
+- **WAF / `Request Rejected`:** API ORLEN jest chronione; przy zbyt częstych żądaniach
+  może odrzucać połączenia. Zmniejsz częstotliwość (interwał ≥ 1 h).
+- **`stale: true` (atrybut):** brak świeżych danych (sieć/WAF) — encje pokazują
+  ostatnią znaną wartość.
+- Po aktualizacji z `beta.2` na `beta.3` encje utworzą się na nowo (zmiana
+  `unique_id`); w razie potrzeby usuń osierocone wpisy w rejestrze encji.
 - Zgłoś problem przez [Issues](https://github.com/lkusinski/orlen-fuel-prices/issues)
   z wersją HA i integracji oraz logami.
+
+---
+
+## 🧪 Testy i rozwój
+
+```bash
+python -m pytest tests/ -v
+ruff check custom_components/ tests/ --select E,F,I --ignore E501,E402
+```
+
+CI (GitHub Actions) uruchamia `pytest` (Python 3.12 i 3.13), `ruff`, `hassfest`
+oraz walidację HACS.
 
 ---
 
@@ -145,7 +187,7 @@ Atrybuty każdego sensora ceny: `product_symbol`, `effective_date`, `vat_rate`,
   Cena netto zawiera akcyzę i opłatę paliwową (poza olejem opałowym).
 - Dane mają charakter **informacyjny** i nie stanowią oferty handlowej.
 - Integracja **nie jest** oficjalnym produktem ORLEN S.A.
-- Pobieranie jest oszczędne (cache/interwał), ale nie ma gwarancji SLA API.
+- Pobieranie jest oszczędne (interwał, jedna instancja), ale API nie ma gwarancji SLA.
 
 ---
 

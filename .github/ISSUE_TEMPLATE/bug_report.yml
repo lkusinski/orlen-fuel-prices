@@ -1,0 +1,47 @@
+name: 🐞 Zgłoszenie błędu
+description: Zgłoś błąd w integracji Ceny Paliw Orlen
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dzięki za zgłoszenie! Uzupełnij poniższe pola, aby przyspieszyć diagnozę.
+  - type: input
+    id: integration_version
+    attributes:
+      label: Wersja integracji
+      placeholder: "np. v0.1.0-beta.3"
+    validations:
+      required: true
+  - type: input
+    id: ha_version
+    attributes:
+      label: Wersja Home Assistant
+      placeholder: "np. 2026.9.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: install
+    attributes:
+      label: Sposób instalacji
+      options:
+        - HACS
+        - Ręcznie (custom_components)
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Opis problemu
+      description: Co się dzieje, czego oczekujesz, jak to odtworzyć.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logi
+      description: Wklej fragment logów (bez sekretów/danych osobowych).
+      render: text
+    validations:
+      required: false

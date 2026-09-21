@@ -17,7 +17,7 @@ nazewnictwa/ikon encji. **NIE promowano do stabilnej.**
 - 🚀 Ikony: netto `mdi:cash-minus`, brutto `mdi:cash`, z marżą `mdi:cash-plus`,
   data `mdi:calendar-clock`, LPG `mdi:gas-cylinder`, VAT `mdi:percent`,
   marża `mdi:percent-box`.
-- 🛠️ Spójne `unique_id`/`entity_id`: `sensor.orlen_<slug>_cena_<netto|brutto|brutto_z_marza>`,
+- 🛠️ Spójne `entity_id`: `sensor.orlen_<slug>_cena_<netto|brutto|z_marza>`,
   `sensor.orlen_<slug>_data_ceny`, `sensor.orlen_lpg_<woj>_cena_*`,
   `number.orlen_marza`.
 - ⚠️ Zmiana `unique_id` względem `beta.2` — po aktualizacji encje utworzą się na
@@ -50,8 +50,8 @@ do czasu przejścia protokołu akceptacyjnego (laby + produkcja).
   ON Ekodiesel, ON Arktyczny 2, ON Miejski Super, ON Ekoterm, BIO 100).
 - 🚀 Poprawny VAT: tabela **CPN 2026** (okna 8%) z zachowaniem 23% dla olejów
   opałowych oraz tryb stałej stawki (`fixed`).
-- 🚀 **Encja z marżą** (`..._brutto_z_marza`), domyślnie **0%** — równa cenie
-  brutto; marża uwzględniana w obliczeniach `brutto × (1 + marża/100)`.
+- 🚀 **Encja z marżą** (cena brutto × (1 + marża)), domyślnie **0%** — równa
+  cenie brutto; marża uwzględniana w obliczeniach.
 - 🚀 Data obowiązywania ceny (`effectiveDate`) jako osobny sensor.
 - 🚀 Opcjonalne LPG per województwo (`/api/autogasprices`).
 - 🚀 Usługa `orlen_fuel_prices.get_prices` (`SupportsResponse.ONLY`).

@@ -48,9 +48,11 @@ Zasady:
 
 ## 4. Marża
 
-`brutto_z_marza = brutto × (1 + marża/100)`, domyślnie **marża = 0%**, więc
-encja z marżą jest równa cenie brutto. Marża nie jest zgadywana — służy tylko
-użytkownikom, którzy chcą doliczyć własną narzutę.
+`cena z marżą = brutto × (1 + marża/100)`, domyślnie **marża = 0%**, więc encja
+`sensor.orlen_<slug>_cena_z_marza` jest równa cenie brutto. Marża jest sterowana
+encją **`number.orlen_marza`** (0–1000%, krok 0,1) albo polem w opcjach
+integracji i nie jest zgadywana — służy użytkownikom, którzy chcą doliczyć
+własną narzutę.
 
 ## 5. Atrybucja i zastrzeżenia
 
